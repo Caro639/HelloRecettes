@@ -1,0 +1,33 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Hello SearchController!
+{% endblock %}
+
+{% block body %}
+
+	{% if app.request.method == 'POST' %}
+		<div>
+			{% if recipes | length == 0 %}
+				<h4>Aucun résultat pour votre recherche.</h4>
+			{% else %}
+				<h3 class="mt-4">Vos résultats de recherche :</h3>
+				{% for recipe in recipes %}
+					<div class="mt-4 p-4 bg-light border rounded">
+						<a href="{{ path('recipe.index.public', {'recipe: recipe.public'}) }}">
+							<h6 class="text-dark">
+								<i class="bi bi-arrow-down-right-square-fill text-primary"></i>
+								{{ recipe.title }}
+							</h6>
+							<div class="text-dark small p-1 rounded">
+								Posté le
+								{{ recipe.createdAt|format_datetime('medium', 'short') }}
+								par
+								{{app.user.pseudo }}
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	{% endif %}
+{% endblock %} #}

@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HelloRecettes -
+	{{ recipe.name }}
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<h1 class="mt-4">{{ recipe.name }}</h1>
+
+		<div class="image_directory mt-4">
+			<img style="max-width: 350px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
+
+		</div>
+
+		<p class="mt-4">La moyenne de cette recette est de
+			{{ recipe.average|number_format(2, '.', ',') }}/5</p>
+
+		<div>
+			<span class="badge bg-primary">Créé le
+				{{ recipe.createdAt|date('d/m/Y') }}
+			</span>
+		</div>
+
+		<div class="mt-4">
+			{% if recipe.time %}
+				<p>Temps (en minutes) :
+					{{ recipe.time }}</p>
+			{% else %}
+				<P>Temps non renseigné</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			{% if recipe.nbPeople %}
+				<p>Pour
+					{{ recipe.nbPeople }}
+					personnes</p>
+			{% else %}
+				<P>Nombre de personnes non renseignées</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			{% if recipe.difficulty %}
+				<p>Difficulté :
+					{{ recipe.difficulty }}/5</p>
+			{% else %}
+				<P>Difficulté non renseignée</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			{% if recipe.price %}
+				<p>Prix (en €) :
+					{{ recipe.price }}</p>
+			{% else %}
+				<P>Prix non renseigné</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			{{ recipe.description|raw }}
+		</div>
+
+		<div class="mt-4">
+			<p class="mt-4">Ingrédients</p>
+			{% for ingredient in recipe.ingredients %}
+				<span class="badge bg-primary">{{ ingredient.name }}
+				</span>
+			{% endfor %}
+		</div>
+
+		<div class="mark mt-4">
+			{{ form(form) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

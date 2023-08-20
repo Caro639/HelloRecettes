@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %}MyHome Accueil
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<div class="jumbotron">
+			<h1 class="display-4">Bienvenue sur HelloRecettes !</h1>
+			<p class="lead">HelloRecettes est une application qui va te permettre de créer des
+												recettes à base d'ingrédients que tu auras toi-même créer.
+											 Tu pourras partager tes recettes à la communauté du site, ou bien les garder en privées.</p>
+			<hr class="my-4">
+			<p>Pour commencer rdv sur la page d'inscription !
+			</p>
+			<a class="btn btn-warning btn-lg" href="{{ path('app_security.registration') }}" role="button">Inscription</a>
+		</div>
+
+		<div class="recipes mt-4">
+			<h2 class="mt-4">Recettes de la communauté</h2>
+			<div class="d-flex justify-content-between">
+				{% for recipe in recipes %}
+
+					<div class="card border-primary mb-3" style="max-width: 20rem;">
+						<div class="card-header">Recette n°{{ recipe.id }}</div>
+						<div class="card-body">
+							<h4 class="card-title">{{ recipe.name }}</h4>
+
+							<div class="image_directory mt-4">
+								<img style="max-width: 100px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
+							</div>
+							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
+						</div>
+					</div>
+
+				{% endfor %}
+			</div>
+		</div>
+	{% endblock %}

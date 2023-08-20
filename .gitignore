@@ -1,0 +1,23 @@
+
+###> symfony/framework-bundle ###
+/.env
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+/package.json/
+/node_modules/.bin/
+/node_modules/@prettier/
+/node_modules/linguist-languages/
+/node_modules/map-age-cleaner/
+/node_modules/mem/
+/node_modules/mimic-fn/
+/node_modules/p-defer/
+/node_modules/php-parser/
+/node_modules/prettier/
+/node_modules/{}.package-lock.json/
+/.gitignore/
+###< symfony/framework-bundle ###

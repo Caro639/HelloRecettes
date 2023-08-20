@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HelloRecettes - Mes recettes
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		{# test barre de recherche #}
+		{# {{ form_start(form) }}
+				<div class="flex justify-center">
+					<div class="mb-3 xl:w-96">
+						<div class="input-group relative flex-wrap items-stretch w-full mb-4">
+							{{ form_widget(form.q, {'attr': {'class': 'btn btn-secondary my-2 my-sm-0'}}) }}
+							<button class="btn btn-secondary my-2 my-sm-0" type="submit" id="button-addon2">Rechercher</button>
+						</div>
+					</div>
+				</div>
+				{{ form_end(form) }} #}
+		{# {% include "../recipe/search_data.html.twig" with {form: form} only %} #}
+			{% if not recipes.items is same as([]) %}
+				<h1 class="mt-4"> Recettes de la communauté</h1>
+
+			<div class="d-flex justify-content-center flex-wrap mt-4">
+				{% for recipe in recipes %}
+
+
+					<div class="card border-primary mb-3" style="max-width: 20rem;">
+						<div class="card-header">Recette n°{{ recipe.id }}</div>
+						<div class="card-body">
+							<h4 class="card-title">{{ recipe.name }}</h4>
+							<div class="image_directory mt-4">
+								<img style="max-width: 100px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
+							</div>
+							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
+						</div>
+						<a href="{{ path('recipe.show', { id: recipe.id }) }}" class="btn btn-outline-warning mt-4">
+							Découvrir
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	{% else %}
+		<h4>Il n'y a pas de recettes</h4>
+	{% endif %}
+	<div>
+	{% endblock %}
