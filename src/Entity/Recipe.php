@@ -2,24 +2,29 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
-use App\Entity\Ingredient;
 use App\Entity\Mark;
-use App\Repository\RecipeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
+use App\Entity\Ingredient;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\MappingAttribute;
 use ORM\HasLifecycleCallbacks;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use ApiPlatform\Metadata\Delete;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\RecipeRepository;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\PostCollection;
+use Doctrine\ORM\Mapping\MappingAttribute;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 #[UniqueEntity('name')]
@@ -27,9 +32,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(normalizationContext: ['groups' => 'getRecipes']),
-        new GetCollection(normalizationContext: ['groups' => 'getRecipes'])
+        new GetCollection(normalizationContext: ['groups' => 'getRecipes']),
+        new Post(normalizationContext: ['groups' => 'getRecipes']),
+            // new PostCollection(normalizationContext: ['groups' => 'getRecipes']),
+        new Delete(normalizationContext: ['groups' => 'getRecipes']),
+            // new PostCollection(normalizationContext: ['groups' => 'postRecipes'])
+        new Put(normalizationContext: ['groups' => 'getRecipes'])
     ],
-    order: ['createdAt' => 'DESC'],
+    order: ['createdAt' => 'DESC', 'updatedAt' => 'DESC'],
     paginationEnabled: false,
 )]
 
@@ -77,6 +87,7 @@ class Recipe
     private ?float $price = null;
 
     #[ORM\Column]
+    #[Groups(["getRecipes"])]
     private ?bool $isFavorite = null;
 
     #[ORM\Column]
@@ -85,10 +96,12 @@ class Recipe
 
     #[ORM\Column]
     #[Assert\NotNull()]
+    #[Groups(["getRecipes"])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
     #[Assert\NotNull()]
+    #[Groups(["getRecipes"])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]

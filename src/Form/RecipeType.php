@@ -23,13 +23,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Image;
 
-
-// use Vich\UploaderBundle\Form\Type\VichFileType;
-// use Vich\UploaderBundle\Form\Type\VichImageType;
-
-
-
-
 class RecipeType extends AbstractType
 {
     private $token;

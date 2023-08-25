@@ -3,9 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\PostCollection;
 use App\Repository\IngredientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -16,9 +21,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(normalizationContext: ['groups' => 'getRecipes']),
-        new GetCollection(normalizationContext: ['groups' => 'getRecipes'])
+        new GetCollection(normalizationContext: ['groups' => 'getRecipes']),
+        new Post(normalizationContext: ['groups' => 'getRecipes']),
+            // new PostCollection(normalizationContext: ['groups' => 'getRecipes']),
+        new Delete(normalizationContext: ['groups' => 'getRecipes']),
+            // new PostCollection(normalizationContext: ['groups' => 'postRecipes'])
+        new Put(normalizationContext: ['groups' => 'getRecipes'])
     ],
-    order: ['createdAt' => 'DESC'],
+    order: ['createdAt' => 'DESC', 'updatedAt' => 'DESC'],
     paginationEnabled: false,
 )]
 
@@ -48,6 +58,7 @@ class Ingredient
 
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["getRecipes"])]
     private ?User $user = null;
 
     /**
