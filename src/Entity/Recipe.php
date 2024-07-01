@@ -124,6 +124,11 @@ class Recipe
         $this->updatedAt = new \DateTimeImmutable();
     }
 
+    public function __toString()
+    {
+        return $this->image;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -317,7 +322,7 @@ class Recipe
 
 
     /**
-     * @return 
+     * @return
      */
     public function getAverage(): ?float
     {

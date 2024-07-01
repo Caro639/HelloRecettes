@@ -16,23 +16,33 @@ class MarkType extends AbstractType
         $builder
             ->add('mark', ChoiceType::class, [
                 'choices' => [
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
-                    '5' => 5,
+                    '🤮' => 1,
+                    '🤢' => 2,
+                    '😐' => 3,
+                    '😃' => 4,
+                    '😋' => 5,
                 ],
+                'expanded' => true,
+                'choice_attr' => [
+                    '🤮' => ['class' => 'm-2 '],
+                    '🤢' => ['class' => 'm-2'],
+                    '😐' => ['class' => 'm-2', 'checked' => 'checked'],
+                    '😃' => ['class' => 'm-2'],
+                    '😋' => ['class' => 'm-2'],
+                ],
+                'expanded' => true,
+                'multiple' => false,
                 'attr' => [
-                    'class' => 'form-select'
+                    // 'class' => 'form-select'
                 ],
                 'label' => 'Noter la recette',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label mt-4 '
                 ]
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary mt-4'
+                    'class' => 'btn btn-warning mt-4'
                 ],
                 'label' => 'Noter la recette'
             ]);

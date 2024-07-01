@@ -16,7 +16,7 @@
 		<h1 class="mt-4">{{ recipe.name }}</h1>
 
 		<div class="image_directory mt-4">
-			<img style="max-width: 350px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
+			<img style="object-fit: cover; width: 200px; height: 200px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
 
 		</div>
 
@@ -78,7 +78,7 @@
 			{% endfor %}
 		</div>
 
-		<div class="mark mt-4">
+		<div class="mt-4">
 			{{ form(form) }}
 			</div>
 		</div>

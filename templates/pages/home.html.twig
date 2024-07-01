@@ -8,8 +8,8 @@
 		<div class="jumbotron">
 			<h1 class="display-4">Bienvenue sur HelloRecettes !</h1>
 			<p class="lead">HelloRecettes est une application qui va te permettre de créer des
-												recettes à base d'ingrédients que tu auras toi-même créer.
-											 Tu pourras partager tes recettes à la communauté du site, ou bien les garder en privées.</p>
+																																												recettes à base d'ingrédients que tu auras toi-même créer.
+																																											 Tu pourras partager tes recettes à la communauté du site, ou bien les garder en privées.</p>
 			<hr class="my-4">
 			<p>Pour commencer rdv sur la page d'inscription !
 			</p>
@@ -27,7 +27,7 @@
 							<h4 class="card-title">{{ recipe.name }}</h4>
 
 							<div class="image_directory mt-4">
-								<img style="max-width: 100px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
+								<img style="object-fit: cover; width: 100px; height: 100px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
 							</div>
 							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
 						</div>

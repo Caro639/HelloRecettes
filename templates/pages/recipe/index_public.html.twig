@@ -7,15 +7,15 @@
 	<div class="container mt-4">
 		{# test barre de recherche #}
 		{# {{ form_start(form) }}
-				<div class="flex justify-center">
-					<div class="mb-3 xl:w-96">
-						<div class="input-group relative flex-wrap items-stretch w-full mb-4">
-							{{ form_widget(form.q, {'attr': {'class': 'btn btn-secondary my-2 my-sm-0'}}) }}
-							<button class="btn btn-secondary my-2 my-sm-0" type="submit" id="button-addon2">Rechercher</button>
+						<div class="flex justify-center">
+							<div class="mb-3 xl:w-96">
+								<div class="input-group relative flex-wrap items-stretch w-full mb-4">
+									{{ form_widget(form.q, {'attr': {'class': 'btn btn-secondary my-2 my-sm-0'}}) }}
+									<button class="btn btn-secondary my-2 my-sm-0" type="submit" id="button-addon2">Rechercher</button>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				{{ form_end(form) }} #}
+						{{ form_end(form) }} #}
 		{# {% include "../recipe/search_data.html.twig" with {form: form} only %} #}
 			{% if not recipes.items is same as([]) %}
 				<h1 class="mt-4"> Recettes de la communauté</h1>
@@ -29,7 +29,7 @@
 						<div class="card-body">
 							<h4 class="card-title">{{ recipe.name }}</h4>
 							<div class="image_directory mt-4">
-								<img style="max-width: 100px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
+								<img style="object-fit: cover; width: 100px; height: 100px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
 							</div>
 							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
 						</div>

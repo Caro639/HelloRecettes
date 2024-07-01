@@ -6,5 +6,6 @@
         "recette",
         "Symfony",
         "vich"
-    ]
+    ],
+    "emojisense.unicodecompletionsenabled": true
 }
