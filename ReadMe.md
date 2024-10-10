@@ -18,7 +18,7 @@ L'administration permet de gérer le site : créer, modifier, supprimer les donn
 
 HelloRecette propose une API des recettes culinaires. Vous pouvez visualiser les requetes sur l'APi Platform de Symfony 6.
 
-API developpée avec [Symfony API Platform)](https://symfony.com/doc/6.2/the-fast-track/fr/26-api.html#exposer-une-api-pour-les-conferences)
+API developpée avec [Symfony API Platform](https://symfony.com/doc/6.2/the-fast-track/fr/26-api.html#exposer-une-api-pour-les-conferences)
 
 API developpée avec [Postman](https://www.postman.com/)
 

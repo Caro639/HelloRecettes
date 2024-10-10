@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Ingredient;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Form\IngredientType;
 use App\Repository\IngredientRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-// use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class IngredientController extends AbstractController
@@ -85,7 +83,8 @@ class IngredientController extends AbstractController
     // #[Security("is_granted('ROLE_USER') and user === ingredient.getUser()")]
     #[Route('/ingredient/edition/{id}', 'ingredient.edit', methods: ['GET', 'POST'])]
     public function edit(
-        Ingredient $ingredient, Request $request,
+        Ingredient $ingredient,
+        Request $request,
         EntityManagerInterface $manager
     ): Response {
         $form = $this->createForm(IngredientType::class, $ingredient);

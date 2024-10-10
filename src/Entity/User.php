@@ -3,18 +3,22 @@
 namespace App\Entity;
 
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\UserRepository;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\PostCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -22,9 +26,14 @@ use ApiPlatform\Metadata\GetCollection;
 #[ApiResource(
     operations: [
         new Get(normalizationContext: ['groups' => 'getRecipes']),
-        new GetCollection(normalizationContext: ['groups' => 'getRecipes'])
+        new GetCollection(normalizationContext: ['groups' => 'getRecipes']),
+        new Post(normalizationContext: ['groups' => 'getRecipes']),
+            // new PostCollection(normalizationContext: ['groups' => 'getRecipes']),
+        new Delete(normalizationContext: ['groups' => 'getRecipes']),
+            // new PostCollection(normalizationContext: ['groups' => 'postRecipes'])
+        new Put(normalizationContext: ['groups' => 'getRecipes'])
     ],
-    order: ['createdAt' => 'DESC'],
+    order: ['createdAt' => 'DESC', 'updatedAt' => 'DESC'],
     paginationEnabled: false,
 )]
 
@@ -33,6 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(["getRecipes"])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]

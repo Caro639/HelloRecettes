@@ -34,7 +34,7 @@
 				<p>Temps (en minutes) :
 					{{ recipe.time }}</p>
 			{% else %}
-				<P>Temps non renseigné</p>
+				<p>Temps non renseigné</p>
 			{% endif %}
 		</div>
 
@@ -44,7 +44,7 @@
 					{{ recipe.nbPeople }}
 					personnes</p>
 			{% else %}
-				<P>Nombre de personnes non renseignées</p>
+				<p>Nombre de personnes non renseignées</p>
 			{% endif %}
 		</div>
 
@@ -53,7 +53,7 @@
 				<p>Difficulté :
 					{{ recipe.difficulty }}/5</p>
 			{% else %}
-				<P>Difficulté non renseignée</p>
+				<p>Difficulté non renseignée</p>
 			{% endif %}
 		</div>
 
@@ -62,7 +62,7 @@
 				<p>Prix (en €) :
 					{{ recipe.price }}</p>
 			{% else %}
-				<P>Prix non renseigné</p>
+				<p>Prix non renseigné</p>
 			{% endif %}
 		</div>
 
@@ -82,5 +82,4 @@
 			{{ form(form) }}
 			</div>
 		</div>
-	</div>
 {% endblock %}
