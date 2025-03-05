@@ -8,7 +8,7 @@ L'utilisateur choisit de partager sa recette à la communauté ou la garder priv
 
 Chaque recette publique peut être notée par les membres de la communauté, chacun peut donner une note une seule fois.
 
-Application developpee avec [[Symfony]](https://symfony.com/)
+Application developpee avec [Symfony](https://symfony.com/)
 
 ## Administration en back office EasyAdmin
 
@@ -33,6 +33,8 @@ Symfony CLI [CLI](https://symfony.com/download)
 Bibliotheque de fausses donnees faker [Faker](https://fakerphp.github.io/)
 
 Systeme d'Upload Files via Symfony 6 documentation [Upload Files](https://symfony.com/doc/current/controller/upload_file.html)
+
+Formulaire de contact Envoi de mail Test avec [Mailtrap](https://mailtrap.io/)
 
 ## Extensions VS Code
 
