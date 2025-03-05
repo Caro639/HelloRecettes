@@ -1,6 +1,6 @@
 # HelloRecette
 
-## HelloRecette est developpe avec Symfony 6.3 PHP-8.2.8
+## HelloRecette est developpe avec Symfony 6.4 PHP-8.2.8
 
 Cette application permet à l'utilisateur de créer des recettes culinaires avec ses ingrédients. L'utilisateur doit créer un compte à l'inscription pour pouvoir créer et visualiser les recettes de la communauté. Vous avez la liberté de définir un pseudo ou rester anonyme.
 
@@ -16,7 +16,7 @@ L'administration permet de gérer le site : créer, modifier, supprimer les donn
 
 ## API/recipes Open Source
 
-HelloRecette propose une API des recettes culinaires. Vous pouvez visualiser les requetes sur l'APi Platform de Symfony 6.
+HelloRecette propose une API des recettes culinaires. Vous pouvez visualiser les requetes sur l'APi Platform de Symfony 6. Route = [Symfony API Platform Recettes partagées](https://127.0.0.1:8000/api)
 
 API developpée avec [Symfony API Platform](https://symfony.com/doc/6.2/the-fast-track/fr/26-api.html#exposer-une-api-pour-les-conferences)
 

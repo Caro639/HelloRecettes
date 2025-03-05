@@ -67,7 +67,7 @@ class RecipeController extends AbstractController
         $recipes = $paginator->paginate(
             $repository->findPublicRecipe(null),
             $request->query->getInt('page', 1),
-            20
+            30
         );
         return $this->render('pages/recipe/index_public.html.twig', [
             'recipes' => $recipes,
@@ -85,7 +85,8 @@ class RecipeController extends AbstractController
     #[Route('/recette/publique/{id}', name: 'recipe.show', methods: ['GET', 'POST'])]
     public function show(
         Recipe $recipe,
-        MarkType $mark, Request $request,
+        MarkType $mark,
+        Request $request,
         MarkRepository $markRepository,
         EntityManagerInterface $manager
     ): Response {
@@ -206,7 +207,8 @@ class RecipeController extends AbstractController
     #[Security("is_granted('ROLE_USER') and recipe.getIsPublic() === true || user === recipe.getUser()")]
     #[Route('/recipe/edition/{id}', 'recipe.edit', methods: ['GET', 'POST'])]
     public function edit(
-        Recipe $recipe, Request $request,
+        Recipe $recipe,
+        Request $request,
         EntityManagerInterface $manager,
         SluggerInterface $slugger
     ): Response {
