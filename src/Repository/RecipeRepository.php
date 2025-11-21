@@ -26,7 +26,6 @@ class RecipeRepository extends ServiceEntityRepository
      * function qui retourne les recettes publiques et nbres public
      *
      * @param integer $nbRecipes
-     * @return array
      */
     public function findPublicRecipe(?int $nbRecipes): array
     {
@@ -34,9 +33,7 @@ class RecipeRepository extends ServiceEntityRepository
             ->where('r.isPublic = 1')
             ->orderBy('r.createdAt', 'DESC');
 
-        if ($nbRecipes !== 0 || $nbRecipes !== null) {
-            $queryBuilder->setMaxResults($nbRecipes);
-        }
+        $queryBuilder->setMaxResults($nbRecipes);
 
         return $queryBuilder->getQuery()
             ->getResult();

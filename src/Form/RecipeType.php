@@ -16,16 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Validator\Constraints\Image;
 
 class RecipeType extends AbstractType
 {
-    private $token;
+    private TokenStorageInterface $token;
 
     public function __construct(TokenStorageInterface $token)
     {
@@ -47,7 +45,7 @@ class RecipeType extends AbstractType
                     'class' => 'form-label mt-4'
                 ],
                 'constraints' => [
-                    new Assert\Length(['min' => 2, 'max' => 50]),
+                    new Assert\Length(min: 2, max: 50),
                     new Assert\NotBlank()
                 ]
             ])
@@ -143,12 +141,11 @@ class RecipeType extends AbstractType
 
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
-                'query_builder' => function (IngredientRepository $r) {
-                    return $r->createQueryBuilder('i')
+                'query_builder' => fn(IngredientRepository $r) =>
+                    $r->createQueryBuilder('i')
                         ->where('i.user = :user')
                         ->orderBy('i.name', 'ASC')
-                        ->setParameter('user', $this->token->getToken()->getUser());
-                },
+                        ->setParameter('user', $this->token->getToken()->getUser()),
                 'label' => 'Les ingrédients',
                 'label_attr' => [
                     'class' => 'form-label mt-4'

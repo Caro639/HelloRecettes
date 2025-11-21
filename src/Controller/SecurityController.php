@@ -7,7 +7,7 @@ use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -15,9 +15,6 @@ class SecurityController extends AbstractController
 {
     /**
      * s authentifier se connecter
-     *
-     * @param AuthenticationUtils $authenticationUtils
-     * @return Response
      */
     #[Route('/connexion', name: 'app_security', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -37,10 +34,6 @@ class SecurityController extends AbstractController
 
     /**
      * s inscrire
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @return Response
      */
     #[Route('/inscription', 'app_security.registration', methods: ['GET', 'POST'])]
     public function registration(Request $request, EntityManagerInterface $manager): Response

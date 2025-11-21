@@ -1,0 +1,24 @@
+api_platform:
+  title: "HelloRecettes API"
+  version: "1.0.0"
+
+  # Mandatory in API Platform 4
+  use_symfony_listeners: true
+
+  # Mandatory in API Platform 4
+  formats:
+    jsonld: ["application/ld+json"]
+    json: ["application/json"]
+    html: ["text/html"]
+
+  # Keep legacy inflector behavior (to be migrated later)
+  keep_legacy_inflector: false
+
+  # Hydra prefix configuration
+  serializer:
+    hydra_prefix: true
+
+  # PUT behavior for API Platform 4
+  defaults:
+    extra_properties:
+      standard_put: true

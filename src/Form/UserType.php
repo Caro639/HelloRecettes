@@ -16,10 +16,6 @@ class UserType extends AbstractType
 {
     /**
      * form du modifier infos profil
-     *
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @return void
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -37,7 +33,7 @@ class UserType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\Length(['min' => 2, 'max' => 50])
+                    new Assert\Length(min: 2, max: 50)
                 ]
             ])
             ->add('pseudo', TextType::class, [
@@ -52,7 +48,7 @@ class UserType extends AbstractType
                     'class' => 'form-label mt-4'
                 ],
                 'constraints' => [
-                    new Assert\Length(['min' => 2, 'max' => 50])
+                    new Assert\Length(min: 2, max: 50)
                 ]
             ])
             ->add('plainPassword', PasswordType::class, [

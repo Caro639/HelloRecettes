@@ -11,28 +11,20 @@ use App\Repository\MarkRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use SearchType;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-// use Symfony\Component\Security\Core\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class RecipeController extends AbstractController
 {
     /**
      * This controller display all recipes
-     *
-     * @param RecipeRepository $repository
-     * @param PaginatorInterface $paginator
-     * @param Request $request
-     * @return Response
      */
     #[IsGranted('ROLE_USER')]
     #[Route('/recette', name: 'app_recipe', methods: ['GET'])]
@@ -51,12 +43,8 @@ class RecipeController extends AbstractController
 
     /**
      * affiche les recettes public
-     *
-     * @param RecipeRepository $repository
-     * @param PaginatorInterface $paginator
-     * @param Request $request
-     * @return Response
      */
+    #[IsGranted('ROLE_USER')]
     #[Route('/recette/publique', name: 'recipe.index.public', methods: ['GET'])]
     public function indexPublic(
         RecipeRepository $repository,
@@ -75,13 +63,10 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * cette function autorise ou pas la recette en public et vote
-     *
-     * @param Recipe $recipe
-     * @return Response
+     * affiche une recette par son id et permet de noter la recette
      */
-    #[Security("is_granted('ROLE_USER') and recipe.getIsPublic() === true|| user === recipe.getUser() ")]
-
+    #[IsGranted('ROLE_USER')]
+    // #[Security("is_granted('ROLE_USER') and (recipe.getIsPublic() === true or user === recipe.getUser())")]
     #[Route('/recette/publique/{id}', name: 'recipe.show', methods: ['GET', 'POST'])]
     public function show(
         Recipe $recipe,
@@ -131,11 +116,6 @@ class RecipeController extends AbstractController
 
     /**
      * controller créer une nouvelle recette
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @param SluggerInterface $slugger
-     * @return Response
      */
     #[IsGranted('ROLE_USER')]
     #[Route('/recette/creation', 'recipe.new', methods: ['GET', 'POST'])]
@@ -197,14 +177,8 @@ class RecipeController extends AbstractController
 
     /**
      * function pour modifier la recette
-     *
-     * @param Recipe $recipe
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @param SluggerInterface $slugger
-     * @return Response
      */
-    #[Security("is_granted('ROLE_USER') and recipe.getIsPublic() === true || user === recipe.getUser()")]
+    #[IsGranted('ROLE_USER')]
     #[Route('/recipe/edition/{id}', 'recipe.edit', methods: ['GET', 'POST'])]
     public function edit(
         Recipe $recipe,
@@ -212,6 +186,10 @@ class RecipeController extends AbstractController
         EntityManagerInterface $manager,
         SluggerInterface $slugger
     ): Response {
+        if ($recipe->getUser() !== $this->getUser()) {
+            throw new AccessDeniedException('Vous n\'avez pas accès à cette recette.');
+        }
+
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -257,9 +235,14 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/recipe/suppression/{id}', 'recipe.delete', methods: ['GET'])]
     public function delete(EntityManagerInterface $manager, Recipe $recipe): Response
     {
+        if ($recipe->getUser() !== $this->getUser()) {
+            throw new AccessDeniedException('Vous n\'avez pas accès à cette recette.');
+        }
+
         $manager->remove($recipe);
         $manager->flush();
 

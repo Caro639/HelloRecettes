@@ -9,21 +9,15 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\DBAL\Types\Types;
-use ORM\HasLifecycleCallbacks;
 use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecipeRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\PostCollection;
-use Doctrine\ORM\Mapping\MappingAttribute;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
@@ -34,9 +28,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
         new Get(normalizationContext: ['groups' => 'getRecipes']),
         new GetCollection(normalizationContext: ['groups' => 'getRecipes']),
         new Post(normalizationContext: ['groups' => 'getRecipes']),
-            // new PostCollection(normalizationContext: ['groups' => 'getRecipes']),
+        // new PostCollection(normalizationContext: ['groups' => 'getRecipes']),
         new Delete(normalizationContext: ['groups' => 'getRecipes']),
-            // new PostCollection(normalizationContext: ['groups' => 'postRecipes'])
+        // new PostCollection(normalizationContext: ['groups' => 'postRecipes'])
         new Put(normalizationContext: ['groups' => 'getRecipes'])
     ],
     order: ['createdAt' => 'DESC', 'updatedAt' => 'DESC'],
@@ -323,11 +317,9 @@ class Recipe
 
     public function removeMark(Mark $mark): static
     {
-        if ($this->marks->removeElement($mark)) {
-            // set the owning side to null (unless already changed)
-            if ($mark->getRecipe() === $this) {
-                $mark->setRecipe(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->marks->removeElement($mark) && $mark->getRecipe() === $this) {
+            $mark->setRecipe(null);
         }
 
         return $this;
@@ -366,8 +358,7 @@ class Recipe
     }
 
     /**
-     * @param  $image 
-     * @return self
+     * @param  $image
      */
     public function setImage(?string $image): self
     {

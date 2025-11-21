@@ -8,26 +8,25 @@ use App\Repository\UserRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use ApiPlatform\Api\UrlGeneratorInterface;
-use Nelmio\ApiDocBundle\Annotation\Security;
+// use ApiPlatform\Api\UrlGeneratorInterface;
+use Nelmio\ApiDocBundle\Attribute\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\UrlGeneratorInterface;
+
 class ApiRecipesController extends AbstractController
 {
 
     /**
      * API json affiche la liste des recettes
-     *
-     * @param RecipeRepository $repository
-     * @param SerializerInterface $serializerInterface
-     * @return JsonResponse
      */
     #[IsGranted('ROLE_USER')]
     #[Route('/api/recipes', name: 'api.recipes', methods: ['GET'])]
@@ -44,11 +43,6 @@ class ApiRecipesController extends AbstractController
 
     /**
      * Affiche une recette par id
-     *
-     * @param RecipeRepository $repository
-     * @param Recipe $recipe
-     * @param SerializerInterface $serializerInterface
-     * @return JsonResponse
      */
     #[Route('/api/recipes/{id}', name: 'api.recipe', methods: ['GET'])]
     public function getRecipe(RecipeRepository $repository, Recipe $recipe, SerializerInterface $serializerInterface): JsonResponse
@@ -61,9 +55,6 @@ class ApiRecipesController extends AbstractController
 
     /**
      * supprimer recette
-     * @param \Doctrine\ORM\EntityManagerInterface $manager
-     * @param \App\Entity\Recipe $recipe
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     #[Security("is_granted('ROLE_USER') and recipe.getIsPublic() === true || user === recipe.getUser()")]
     #[Route('/api/recipes/{id}', name: 'api.recipe.delete', methods: ['DELETE'])]
@@ -77,18 +68,14 @@ class ApiRecipesController extends AbstractController
 
     /**
      * Summary of createRecipe
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\Serializer\SerializerInterface $serializerInterface
-     * @param \Doctrine\ORM\EntityManagerInterface $manager
-     * @param \ApiPlatform\Api\UrlGeneratorInterface $urlGeneratorInterface
-     * @param \App\Repository\UserRepository $userRepository
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     #[IsGranted('ROLE_USER')]
     #[Route('/api/recipes', name: 'api.recipe.create', methods: ['POST'])]
     public function createRecipe(
-        Request $request, SerializerInterface $serializerInterface,
-        EntityManagerInterface $manager, UrlGeneratorInterface $urlGeneratorInterface,
+        Request $request,
+        SerializerInterface $serializerInterface,
+        EntityManagerInterface $manager,
+        UrlGeneratorInterface $urlGeneratorInterface,
         UserRepository $userRepository
     ): JsonResponse {
         $recipe = $serializerInterface->deserialize($request->getcontent(), Recipe::class, 'json');
@@ -119,18 +106,15 @@ class ApiRecipesController extends AbstractController
 
     /**
      * Summary of updateRecipe
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\Serializer\SerializerInterface $serializerInterface
-     * @param \App\Entity\Recipe $currentRecipe
-     * @param \Doctrine\ORM\EntityManagerInterface $manager
-     * @param \App\Repository\UserRepository $userRepository
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     #[Security("is_granted('ROLE_USER') and recipe.getIsPublic() === true || user === recipe.getUser()")]
     #[Route('/api/recipes/{id}', name: 'api.recipe.update', methods: ['PUT'])]
     public function updateRecipe(
-        Request $request, SerializerInterface $serializerInterface,
-        Recipe $currentRecipe, EntityManagerInterface $manager, UserRepository $userRepository
+        Request $request,
+        SerializerInterface $serializerInterface,
+        Recipe $currentRecipe,
+        EntityManagerInterface $manager,
+        UserRepository $userRepository
     ): JsonResponse {
         $updateRecipe = $serializerInterface->deserialize(
             $request->getContent(),
@@ -144,7 +128,7 @@ class ApiRecipesController extends AbstractController
 
         $manager->persist($updateRecipe);
         $manager->flush();
-        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
 }

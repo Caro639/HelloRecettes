@@ -9,8 +9,6 @@ class MailService
 {
     /**
      * Undocumented variable
-     *
-     * @var MailerInterface
      */
     private MailerInterface $mailer;
     public function __construct(MailerInterface $mailer)

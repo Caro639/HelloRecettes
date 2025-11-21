@@ -18,10 +18,6 @@ class RegistrationType extends AbstractType
 {
     /**
      * form du login
-     *
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @return void
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -38,7 +34,7 @@ class RegistrationType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\Length(['min' => 2, 'max' => 50])
+                    new Assert\Length(min: 2, max: 50)
                 ]
             ])
             ->add('pseudo', TextType::class, [
@@ -53,7 +49,7 @@ class RegistrationType extends AbstractType
                     'class' => 'form-label mt-4'
                 ],
                 'constraints' => [
-                    new Assert\Length(['min' => 2, 'max' => 50])
+                    new Assert\Length(min: 2, max: 50)
                 ]
             ])
 
@@ -70,7 +66,7 @@ class RegistrationType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Email(),
-                    new Assert\Length(['min' => 2, 'max' => 180])
+                    new Assert\Length(min: 2, max: 180)
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [

@@ -61,6 +61,9 @@
 			</div>
 		{% else %}
 			<h5>Il n'y a pas d'ingrédients !</h5>
+			<a href="{{ path('ingredient.new') }}" class="btn btn-warning mt-4">
+				Créer un ingrédient
+			</a>
 		{% endif %}
 		<div>
 		{% endblock %}

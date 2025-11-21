@@ -28,7 +28,6 @@ class UserListener
     /**
      * encode le password basé sur le plainPassword
      *
-     * @param User $user
      * @return void
      */
     public function encodePassword(User $user)

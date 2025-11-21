@@ -36,6 +36,12 @@ Systeme d'Upload Files via Symfony 6 documentation [Upload Files](https://symfon
 
 Formulaire de contact Envoi de mail Test avec [Mailtrap](https://mailtrap.io/)
 
+Testing avec [PHPUnit](https://phpunit.de/)
+
+Run "php bin/console make:test"
+
+Rector [Rector](https://getrector.org/)
+
 ## Extensions VS Code
 
 Composer DEVSENSE

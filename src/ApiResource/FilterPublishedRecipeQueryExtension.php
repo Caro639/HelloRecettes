@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api;
+namespace App\ApiResource;
 
 use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Doctrine\Orm\Extension\QueryItemExtensionInterface;
@@ -13,20 +13,27 @@ use Doctrine\ORM\QueryBuilder;
 class FilterPublishedRecipeQueryExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
     public function applyToCollection(
-        QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator,
-        string $recipeList, Operation $operation = null, array $context = []
+        QueryBuilder $queryBuilder,
+        QueryNameGeneratorInterface $queryNameGenerator,
+        string $recipeList,
+        ?Operation $operation = null,
+        array $context = []
     ): void {
         if (Recipe::class === $recipeList) {
-            $queryBuilder->andWhere(sprintf("%s.state = 'isPublic = 1'", $queryBuilder->getRootAliases()[0]));
+            $queryBuilder->andWhere(\sprintf("%s.isPublic = 1", $queryBuilder->getRootAliases()[0]));
         }
     }
 
     public function applyToItem(
-        QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator,
-        string $recipeList, array $identifiers, Operation $operation = null, array $context = []
+        QueryBuilder $queryBuilder,
+        QueryNameGeneratorInterface $queryNameGenerator,
+        string $recipeList,
+        array $identifiers,
+        ?Operation $operation = null,
+        array $context = []
     ): void {
         if (Recipe::class === $recipeList) {
-            $queryBuilder->andWhere(sprintf("%s.state = 'isPublic = 1'", $queryBuilder->getRootAliases()[0]));
+            $queryBuilder->andWhere(\sprintf("%s.isPublic = 1", $queryBuilder->getRootAliases()[0]));
         }
     }
 }

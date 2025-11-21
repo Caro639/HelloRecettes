@@ -43,7 +43,7 @@ class ContactType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Email(),
-                    new Assert\Length(['min' => 2, 'max' => 180])
+                    new Assert\Length(min: 2, max: 180)
                 ]
             ])
             ->add('subject', TextType::class, [
@@ -57,7 +57,7 @@ class ContactType extends AbstractType
                     'class' => 'form-label mt-4'
                 ],
                 'constraints' => [
-                    new Assert\Length(['min' => 2, 'max' => 100])
+                    new Assert\Length(min: 2, max: 100)
                 ]
             ])
             ->add('message', TextareaType::class, [
@@ -78,11 +78,12 @@ class ContactType extends AbstractType
                 ],
                 'label' => 'Validez'
             ])
-            ->add('captcha', Recaptcha3Type::class, [
-                'constraints' => new Recaptcha3(),
-                'action_name' => 'contact',
-                'locale' => 'fr',
-            ]);
+            // ->add('captcha', Recaptcha3Type::class, [
+            //     'constraints' => new Recaptcha3(),
+            //     'action_name' => 'contact',
+            //     'locale' => 'fr',
+            // ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

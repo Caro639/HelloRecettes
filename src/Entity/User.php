@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\PostCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -28,9 +27,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
         new Get(normalizationContext: ['groups' => 'getRecipes']),
         new GetCollection(normalizationContext: ['groups' => 'getRecipes']),
         new Post(normalizationContext: ['groups' => 'getRecipes']),
-            // new PostCollection(normalizationContext: ['groups' => 'getRecipes']),
+        // new PostCollection(normalizationContext: ['groups' => 'getRecipes']),
         new Delete(normalizationContext: ['groups' => 'getRecipes']),
-            // new PostCollection(normalizationContext: ['groups' => 'postRecipes'])
+        // new PostCollection(normalizationContext: ['groups' => 'postRecipes'])
         new Put(normalizationContext: ['groups' => 'getRecipes'])
     ],
     order: ['createdAt' => 'DESC', 'updatedAt' => 'DESC'],
@@ -179,8 +178,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param  $plainPassword 
-     * @return self
+     * @param  $plainPassword
      */
     public function setPlainPassword(?string $plainPassword): self
     {
@@ -244,11 +242,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeIngredient(Ingredient $ingredient): static
     {
-        if ($this->ingredients->removeElement($ingredient)) {
-            // set the owning side to null (unless already changed)
-            if ($ingredient->getUser() === $this) {
-                $ingredient->setUser(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->ingredients->removeElement($ingredient) && $ingredient->getUser() === $this) {
+            $ingredient->setUser(null);
         }
 
         return $this;
@@ -274,11 +270,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeRecipe(Recipe $recipe): static
     {
-        if ($this->recipes->removeElement($recipe)) {
-            // set the owning side to null (unless already changed)
-            if ($recipe->getUser() === $this) {
-                $recipe->setUser(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->recipes->removeElement($recipe) && $recipe->getUser() === $this) {
+            $recipe->setUser(null);
         }
 
         return $this;
@@ -304,11 +298,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeMark(Mark $mark): static
     {
-        if ($this->marks->removeElement($mark)) {
-            // set the owning side to null (unless already changed)
-            if ($mark->getUser() === $this) {
-                $mark->setUser(null);
-            }
+        // set the owning side to null (unless already changed)
+        if ($this->marks->removeElement($mark) && $mark->getUser() === $this) {
+            $mark->setUser(null);
         }
 
         return $this;

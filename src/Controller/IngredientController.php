@@ -7,21 +7,18 @@ use App\Form\IngredientType;
 use App\Repository\IngredientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\SecurityBundle\Security as SecurityAttribute;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class IngredientController extends AbstractController
 {
     /**
      * this function display all ingredients
-     *
-     * @param IngredientRepository $repository
-     * @param PaginatorInterface $paginator
-     * @param Request $request
-     * @return Response
      */
     #[IsGranted('ROLE_USER')]
     #[Route('/ingredient', name: 'app_ingredient', methods: 'GET')]
@@ -41,10 +38,6 @@ class IngredientController extends AbstractController
 
     /**
      * this controller show a form which create ingredient
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @return Response
      */
     #[IsGranted('ROLE_USER')]
     #[Route('/ingredient/nouveau', 'ingredient.new', methods: ['GET', 'POST'])]
@@ -75,18 +68,18 @@ class IngredientController extends AbstractController
 
     /**
      * ce controller crée un form pour modifier l ingredient
-     * @param \App\Entity\Ingredient $ingredient
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Doctrine\ORM\EntityManagerInterface $manager
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    // #[Security("is_granted('ROLE_USER') and user === ingredient.getUser()")]
+    #[IsGranted('ROLE_USER')]
     #[Route('/ingredient/edition/{id}', 'ingredient.edit', methods: ['GET', 'POST'])]
     public function edit(
         Ingredient $ingredient,
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+
+        if ($ingredient->getUser() !== $this->getUser()) {
+            throw new AccessDeniedException('Vous ne pouvez pas modifier cet ingrédient.');
+        }
         $form = $this->createForm(IngredientType::class, $ingredient);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -109,20 +102,14 @@ class IngredientController extends AbstractController
 
     /**
      * ce controler supprime un ingredient
-     * @param \Doctrine\ORM\EntityManagerInterface $manager
-     * @param \App\Entity\Ingredient $ingredient
-     * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[IsGranted('ROLE_USER')]
     #[Route('/ingredient/suppression/{id}', 'ingredient.delete', methods: ['GET'])]
     public function delete(EntityManagerInterface $manager, Ingredient $ingredient): Response
     {
-        // if (!$ingredient) {
-        //     $this->addFlash(
-        //         'success',
-        //         'L\' ingrédient n\'a été trouvé !'
-        //     );
-        //     return $this->redirectToRoute('app_ingredient');
-        // }
+        if ($ingredient->getUser() !== $this->getUser()) {
+            throw new AccessDeniedException('Vous ne pouvez pas supprimer cet ingrédient.');
+        }
 
         $manager->remove($ingredient);
         $manager->flush();

@@ -22,7 +22,6 @@ class MarkType extends AbstractType
                     '😃' => 4,
                     '😋' => 5,
                 ],
-                'expanded' => true,
                 'choice_attr' => [
                     '🤮' => ['class' => 'm-2 '],
                     '🤢' => ['class' => 'm-2'],
