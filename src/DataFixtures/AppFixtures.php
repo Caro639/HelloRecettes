@@ -36,6 +36,17 @@ class AppFixtures extends Fixture
 
         //users
         $users = [];
+
+        // Utilisateur de test avec email fixe
+        $testUser = new User();
+        $testUser->setFullName('Test User')
+            ->setPseudo('testuser')
+            ->setEmail('contact@hellorecettes.fr')
+            ->setRoles(['ROLE_USER'])
+            ->setPlainPassword('password');
+        $users[] = $testUser;
+        $manager->persist($testUser);
+
         for ($i = 0; $i < 15; $i++) {
             $user = new User();
             $user->setFullName($this->faker->name())
