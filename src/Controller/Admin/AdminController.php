@@ -2,14 +2,15 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Ingredient;
-use App\Entity\Recipe;
 use App\Entity\User;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use App\Entity\Recipe;
+use App\Entity\Contact;
+use App\Entity\Ingredient;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class AdminController extends AbstractDashboardController
 {
@@ -33,6 +34,7 @@ class AdminController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Ingredients', 'fas fa-bowl-rice', Ingredient::class);
         yield MenuItem::linkToCrud('Recettes', 'fas fa-bowl-rice', Recipe::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Contacts', 'fas fa-envelope', Contact::class);
     }
 }
 
