@@ -33,4 +33,29 @@ class LoginTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Bienvenue sur HelloRecettes !');
     }
+
+    public function testIfLoginFailedWhenWrongPassword(): void
+    {
+        $client = static::createClient();
+
+        // Accéder à la page de connexion
+        $urlGenerator = $client->getContainer()->get('router');
+        $crawler = $client->request('GET', $urlGenerator->generate('app_security'));
+
+        $form = $crawler->filter('form[name=login]')->form([
+            "_username" => "contact@hellorecettes.fr",
+            "_password" => "password_"
+        ]);
+        //soumettre le formulaire
+        $client->submit($form);
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+
+        $client->followRedirect();
+
+        //vérifier que l'utilisateur n'est pas authentifié
+        $this->assertRouteSame('app_security');
+        $this->assertSelectorExists('div.alert.alert-dismissible.alert-info.mt-4');
+
+    }
 }

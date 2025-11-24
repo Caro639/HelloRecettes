@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ContactTest extends WebTestCase
 {
-    public function testSomething(): void
+    public function testIfSubmitContactFormIsSuccessful(): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/contact');
