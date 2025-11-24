@@ -5,18 +5,6 @@
 
 {% block body %}
 	<div class="container mt-4">
-		{# test barre de recherche #}
-		{# {{ form_start(form) }}
-						<div class="flex justify-center">
-							<div class="mb-3 xl:w-96">
-								<div class="input-group relative flex-wrap items-stretch w-full mb-4">
-									{{ form_widget(form.q, {'attr': {'class': 'btn btn-secondary my-2 my-sm-0'}}) }}
-									<button class="btn btn-secondary my-2 my-sm-0" type="submit" id="button-addon2">Rechercher</button>
-								</div>
-							</div>
-						</div>
-						{{ form_end(form) }} #}
-		{# {% include "../recipe/search_data.html.twig" with {form: form} only %} #}
 			{% if not recipes.items is same as([]) %}
 				<h1 class="mt-4"> Recettes de la communauté</h1>
 

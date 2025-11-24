@@ -1,13 +1,15 @@
 {
-    "cSpell.words": [
-        "autoload",
-        "autowire",
-        "hashers",
-        "recette",
-        "Symfony",
-        "vich"
-    ],
-    "emojisense.unicodecompletionsenabled": true
-    ],
-"emojisense.unicodecompletionsenabled": true
+  "cSpell.words": [
+    "autoload",
+    "autowire",
+    "hashers",
+    "recette",
+    "Symfony",
+    "vich"
+  ],
+  "emojisense.unicodecompletionsenabled": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 120
 }

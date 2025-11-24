@@ -3,25 +3,30 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserPasswordType;
 use App\Form\UserType;
+use App\Form\UserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\SecurityBundle\Security as SecurityAttribute;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class UserController extends AbstractController
 {
     /**
      * this function edite le profil utilisateur permet de modifier
      */
-    #[SecurityAttribute("is_granted('ROLE_USER') and user === choosenUser")]
+    #[IsGranted('ROLE_USER')]
     #[Route('/utilisateur/edition/{id}', name: 'app_user.edit', methods: ['GET', 'POST'])]
     public function edit(User $choosenUser, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
     {
+        if ($choosenUser !== $this->getUser()) {
+            throw new AccessDeniedException('Vous ne pouvez pas modifier ce profil.');
+        }
+
         $form = $this->createForm(UserType::class, $choosenUser);
 
         $form->handleRequest($request);
@@ -53,7 +58,7 @@ class UserController extends AbstractController
     /**
      * function qui permet de modifier le mot de passe
      */
-    #[SecurityAttribute("is_granted('ROLE_USER') and user === choosenUser")]
+    #[IsGranted('ROLE_USER')]
     #[Route('/utilisateur/edition-mot-de-passe/{id}', 'app_user.edit.password', methods: ['GET', 'POST'])]
     public function editPassword(
         User $choosenUser,
@@ -61,6 +66,11 @@ class UserController extends AbstractController
         UserPasswordHasherInterface $hasher,
         EntityManagerInterface $manager,
     ): Response {
+
+        if ($choosenUser !== $this->getUser()) {
+            throw new AccessDeniedException('Vous ne pouvez pas modifier ce profil.');
+        }
+
         $form = $this->createForm(UserPasswordType::class);
 
         $form->handleRequest($request);
