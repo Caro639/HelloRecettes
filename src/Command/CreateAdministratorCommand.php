@@ -3,11 +3,8 @@
 namespace App\Command;
 
 use App\Entity\User;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -40,25 +37,21 @@ class CreateAdministratorCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $helper = $this->getHelper('question');
         $io = new SymfonyStyle($input, $output);
 
         $fullName = $input->getArgument('full_name');
         if (!$fullName) {
-            $question = new Question('Quel est le nom de l\'admin : ');
-            $fullName = $helper->ask($input, $output, $question);
+            $fullName = $io->ask("Quel est le nom de l'admin");
         }
 
         $email = $input->getArgument('email');
         if (!$email) {
-            $question = new Question('Quel est l\'email de ' . $fullName . ' : ');
-            $email = $helper->ask($input, $output, $question);
+            $email = $io->ask("Quel est l'email de $fullName");
         }
 
         $plainPassword = $input->getArgument('password');
         if (!$plainPassword) {
-            $question = new Question('Quel est le mot de passe de ' . $fullName . ' : ');
-            $plainPassword = $helper->ask($input, $output, $question);
+            $plainPassword = $io->askHidden("Quel est le mot de passe de $fullName");
         }
 
         $user = (new User())->setFullname($fullName)
@@ -68,15 +61,6 @@ class CreateAdministratorCommand extends Command
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-
-        // if ($arg1) {
-        //     $io->note(sprintf('You passed an argument: %s', $arg1));
-        // }
-
-        // if ($input->getOption('option1')) {
-
-        // }
-
 
         $io->success('Le nouvel admin est créé ! ');
 
