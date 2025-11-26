@@ -17,9 +17,9 @@
 								<h4 class="card-title">{{ recipe.name }}</h4>
 								<div class="text-center my-3">
 									{% if recipe.image %}
-										<img class="img-fluid" style="object-fit: cover; width: 100px; height: 100px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
+										<img class="img-fluid" style="object-fit: cover; width: 150px; height: 120px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
 									{% else %}
-										<img class="img-fluid" style="object-fit: cover; width: 100px; height: 100px;" src="{{ asset('../image/products/replace.jpg') }}" alt="Photo par défaut de la recette"/>
+										<img class="img-fluid" style="object-fit: cover; width: 150px; height: 120px;" src="{{ asset('../image/products/replace.jpg') }}" alt="Photo par défaut de la recette"/>
 									{% endif %}
 								</div>
 								<p class="card-text flex-grow-1">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
