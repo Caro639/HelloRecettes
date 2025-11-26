@@ -29,7 +29,11 @@
 							<h4 class="card-title">{{ recipe.name }}</h4>
 
 							<div class="image_directory mt-4">
+							{% if recipe.image %}
 								<img style="object-fit: cover; width: 100px; height: 100px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
+							{% else %}
+								<img style="object-fit: cover; width: 100px; height: 100px;" src="{{ asset('../image/products/replace.jpg') }}" alt="Photo par défaut de la recette"/>
+							{% endif %}
 							</div>
 							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...' }}</p>
 						</div>

@@ -16,7 +16,11 @@
 		<h1 class="mt-4">{{ recipe.name }}</h1>
 
 		<div class="image_directory mt-4">
+		{% if recipe.image %}
 			<img style="object-fit: cover; width: 200px; height: 200px;" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de la recette"/>
+		{% else %}
+			<img style="object-fit: cover; width: 200px; height: 200px;" src="{{ asset('../image/products/replace.jpg') }}" alt="Photo par défaut de la recette"/>
+		{% endif %}
 
 		</div>
 
@@ -31,8 +35,8 @@
 
 		<div class="mt-4">
 			{% if recipe.time %}
-				<p>Temps (en minutes) :
-					{{ recipe.time }}</p>
+				<p>Temps :
+					{{ recipe.time|minutes_to_hour }}</p>
 			{% else %}
 				<p>Temps non renseigné</p>
 			{% endif %}
@@ -59,8 +63,8 @@
 
 		<div class="mt-4">
 			{% if recipe.price %}
-				<p>Prix (en €) :
-					{{ recipe.price }}</p>
+				<p>Prix :
+					{{ recipe.price }} €</p>
 			{% else %}
 				<p>Prix non renseigné</p>
 			{% endif %}
