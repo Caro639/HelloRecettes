@@ -61,10 +61,12 @@ class RecipeController extends AbstractController
             return $repository->findPublicRecipe(null);
         });
 
+        // dd($data);
+
         $recipes = $paginator->paginate(
             $data,
             $request->query->getInt('page', 1),
-            30
+            20
         );
 
         return $this->render('pages/recipe/index_public.html.twig', [
@@ -170,10 +172,17 @@ class RecipeController extends AbstractController
             $manager->persist($recipe);
             $manager->flush();
 
-            $this->addFlash(
-                'success',
-                'Votre recette a été créé avec succés !'
-            );
+            if ($recipe->isIsPublic()) {
+                $this->addFlash(
+                    'success',
+                    'Bravo ! Votre recette a été créée et partagée avec la communauté !'
+                );
+            } else {
+                $this->addFlash(
+                    'success',
+                    'Votre recette a été créée avec succès !'
+                );
+            }
 
             return $this->redirectToRoute('app_recipe');
         }
@@ -233,10 +242,18 @@ class RecipeController extends AbstractController
             $manager->persist($recipe);
             $manager->flush();
 
-            $this->addFlash(
-                'success',
-                'Votre recette a été modifié avec succés !'
-            );
+            if ($recipe->isIsPublic()) {
+                $this->addFlash(
+                    'success',
+                    'Bravo ! Votre recette a été modifiée et est partagée avec la communauté !'
+                );
+            } else {
+                $this->addFlash(
+                    'success',
+                    'Votre recette a été modifiée avec succès !'
+                );
+            }
+
             return $this->redirectToRoute('app_recipe');
         }
 

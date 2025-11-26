@@ -5,6 +5,13 @@
 
 {% block body %}
 	<div class="container mt-4">
+
+	{% for message in app.flashes('success') %}
+				<div class="alert alert-success mt-4">
+					{{ message }}
+				</div>
+	{% endfor %}
+
 		<div class="jumbotron">
 			<h1 class="display-4">Bienvenue sur HelloRecettes !</h1>
 			<p class="lead">HelloRecettes est une application qui va 

@@ -139,6 +139,20 @@ class RecipeType extends AbstractType
                 ]
             ])
 
+            ->add('isPublic', CheckboxType::class, [
+                'attr' => [
+                    'class' => 'checkbox-switch',
+                ],
+                'required' => false,
+                'label' => 'Publique ?',
+                'label_attr' => [
+                    'class' => 'checkbox-inline checkbox-switch mt-4'
+                ],
+                'constraints' => [
+                    new Assert\NotNull()
+                ]
+            ])
+
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
                 'query_builder' => fn(IngredientRepository $r) =>
