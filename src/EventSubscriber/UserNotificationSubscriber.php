@@ -28,7 +28,7 @@ class UserNotificationSubscriber implements EventSubscriberInterface
         if ($user instanceof User) {
             // Stocker temporairement dans la session
             $request = $this->requestStack->getCurrentRequest();
-            if ($request && $request->hasSession()) {
+            if ($request?->hasSession()) {
                 $request->getSession()->set('_login_welcome_message', $user->getFullName());
             }
         }
