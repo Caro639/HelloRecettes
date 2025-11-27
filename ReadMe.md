@@ -1,6 +1,6 @@
 # HelloRecette
 
-## HelloRecette est developpe avec Symfony 7.4 PHP-8.2.8
+## HelloRecette est developpe avec Symfony 7.4 PHP-8.3
 
 Cette application permet à l'utilisateur de créer des recettes culinaires avec ses ingrédients. L'utilisateur doit créer un compte à l'inscription pour pouvoir créer et visualiser les recettes de la communauté. Vous avez la liberté de définir un pseudo ou rester anonyme.
 
