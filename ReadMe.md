@@ -24,7 +24,7 @@ API developpée avec [Postman](https://www.postman.com/)
 
 ## techniques
 
-PHP-8.2.8
+PHP-8.3
 
 Composer [Composer](https://getcomposer.org/)
 
