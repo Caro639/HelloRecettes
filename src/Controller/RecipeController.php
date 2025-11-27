@@ -56,7 +56,10 @@ class RecipeController extends AbstractController
 
         $cache = new FilesystemAdapter();
 
-        $data = $cache->get('recipes', function (ItemInterface $item) use ($repository) {
+        // Utiliser une clé de cache différente selon l'environnement pour éviter les conflits
+        $cacheKey = 'recipes_' . $this->getParameter('kernel.environment');
+
+        $data = $cache->get($cacheKey, function (ItemInterface $item) use ($repository) {
             $item->expiresAfter(15);
             return $repository->findPublicRecipe(null);
         });
@@ -275,7 +278,7 @@ class RecipeController extends AbstractController
 
         $this->addFlash(
             'success',
-            'Votre recette a été supprimé avec succés !'
+            'Votre recette a été supprimée avec succès !'
         );
         return $this->redirectToRoute('app_recipe');
     }
