@@ -1,71 +1,187 @@
-# HelloRecette
+# 🍳 HelloRecettes
 
-## HelloRecette est developpe avec Symfony 7.4 PHP-8.3
+![Symfony](https://img.shields.io/badge/Symfony-7.4-000000?style=for-the-badge&logo=symfony&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
 
-Cette application permet à l'utilisateur de créer des recettes culinaires avec ses ingrédients. L'utilisateur doit créer un compte à l'inscription pour pouvoir créer et visualiser les recettes de la communauté. Vous avez la liberté de définir un pseudo ou rester anonyme.
+## 🎯 Plateforme collaborative de partage de recettes culinaires
 
-L'utilisateur choisit de partager sa recette à la communauté ou la garder privée. Lors de la création de la recette, vous pouvez partager une photo de votre recette. Vous pouvez ensuite modifier ou supprimer ce que vous souhaitez.
+### Créez, partagez et découvrez des recettes avec une communauté passionnée de cuisine
 
-Chaque recette publique peut être notée par les membres de la communauté, chacun peut donner une note une seule fois.
+---
 
-Application developpee avec [Symfony](https://symfony.com/)
+## 📋 À propos
 
-## Administration en back office EasyAdmin
+**HelloRecettes** est une application web moderne de gestion de recettes culinaires qui permet aux utilisateurs de :
 
-L'administration permet de gérer le site : créer, modifier, supprimer les données des ingrédients, des recettes et des utilisateurs.
+- 📝 **Créer et gérer** leurs propres recettes avec ingrédients
+- 🌍 **Partager** leurs créations avec la communauté
+- ⭐ **Noter et découvrir** les recettes publiques
+- 📸 **Illustrer** leurs plats avec des photos
+- 🔒 **Garder privées** certaines recettes ou les rendre publiques
+- 👤 **Gérer leur profil** avec pseudo ou en anonyme
 
-## API/recipes Open Source
+## ✨ Fonctionnalités principales
 
-HelloRecette propose une API des recettes culinaires. Vous pouvez visualiser les requetes sur l'APi Platform de Symfony 6. Route = [Symfony API Platform Recettes partagées](https://127.0.0.1:8000/api)
+### Pour les utilisateurs
 
-API developpée avec [Symfony API Platform](https://symfony.com/doc/6.2/the-fast-track/fr/26-api.html#exposer-une-api-pour-les-conferences)
+- ✅ Système d'authentification sécurisé
+- 🎨 Interface moderne et responsive avec design orange/dark
+- 🥕 Gestion complète des ingrédients
+- 👨‍🍳 Création de recettes détaillées (temps, difficulté, nombre de personnes, prix)
+- ⭐ Système de favoris et de notation communautaire
+- 📷 Upload de photos pour les recettes
+- 🔍 Recherche et filtrage de recettes publiques
+- 💬 Formulaire de contact
 
-API developpée avec [Postman](https://www.postman.com/)
+### Administration
 
-## techniques
+- 🛡️ **Back-office EasyAdmin** pour la gestion complète :
+  - CRUD des ingrédients
+  - CRUD des recettes
+  - CRUD des utilisateurs
+  - Vue d'ensemble des statistiques
 
-PHP-8.3
+### API REST
 
-Composer [Composer](https://getcomposer.org/)
+- 🚀 **API Platform** Open Source pour les développeurs
+- 📚 Documentation interactive Swagger/OpenAPI
+- 🔓 Accès public aux recettes partagées
+- 🔗 Endpoint : `/api`
 
-Symfony CLI [CLI](https://symfony.com/download)
+## 🛠️ Technologies
 
-Bibliotheque de fausses donnees faker [Faker](https://fakerphp.github.io/)
+### Backend
 
-Systeme d'Upload Files via Symfony 6 documentation [Upload Files](https://symfony.com/doc/current/controller/upload_file.html)
+- **[Symfony 7.4](https://symfony.com/)** - Framework PHP moderne
+- **PHP 8.3** - Langage serveur
+- **Doctrine ORM** - Gestion de base de données
+- **API Platform** - Création d'API REST
+- **EasyAdmin** - Interface d'administration
 
-Formulaire de contact Envoi de mail Test avec [Mailtrap](https://mailtrap.io/)
+### Frontend
 
-Testing avec [PHPUnit](https://phpunit.de/)
+- **Twig** - Moteur de templates
+- **Bootstrap 5** (Bootswatch Slate) - Framework CSS
+- **CSS personnalisé** - Design orange/dark moderne
 
-Run "php bin/console make:test"
+### Outils de développement
 
-Rector [Rector](https://getrector.org/)
+- **[Composer](https://getcomposer.org/)** - Gestionnaire de dépendances PHP
+- **[Symfony CLI](https://symfony.com/download)** - Outil en ligne de commande
+- **[Faker](https://fakerphp.github.io/)** - Génération de données de test
+- **[PHPUnit](https://phpunit.de/)** - Tests unitaires et fonctionnels
+- **[Rector](https://getrector.org/)** - Refactoring automatisé
+- **[Mailtrap](https://mailtrap.io/)** - Test d'envoi d'emails
 
-## Extensions VS Code
+## 📦 Installation
 
-Composer DEVSENSE
+### Prérequis
 
-Composer PHP Composer
+- PHP 8.3 ou supérieur
+- Composer
+- Symfony CLI
+- MySQL/MariaDB ou PostgreSQL
 
-PHP ALL In ONe PHP Support DEVSENSE
+### Étapes d'installation
 
-PHP CS Fixer
+```bash
+# Cloner le repository
+git clone https://github.com/Caro639/HelloRecettes.git
+cd HelloRecettes
 
-PHP DockBlocker
+# Installer les dépendances
+composer install
 
-PHP Namespace Resolver
+# Configurer les variables d'environnement
+cp .env .env.local
+# Éditer .env.local avec vos paramètres de base de données
 
-PHP Profiler DEVSENSE
+# Créer la base de données
+php bin/console doctrine:database:create
 
-Symfony code snippets
+# Exécuter les migrations
+php bin/console doctrine:migrations:migrate
 
-Symfony Console
+# (Optionnel) Charger les fixtures
+php bin/console doctrine:fixtures:load
 
-Twig Code Snippets
+# Démarrer le serveur de développement
+symfony server:start
+```
 
-Twig Language 2
+L'application sera accessible sur `https://127.0.0.1:8000`
 
-YAML Red Hat
+## 🚀 Utilisation
 
-Copy-Item "c:\laragon\www\HelloRecettes\assets\styles\app.css" "c:\laragon\www\HelloRecettes\public\styles\app.css"
+### Créer un compte administrateur
+
+```bash
+php bin/console app:create-admin
+```
+
+### Lancer les tests
+
+```bash
+php bin/phpunit
+```
+
+### Accéder aux différentes interfaces
+
+- 🏠 **Application** : `https://127.0.0.1:8000`
+- 🛡️ **Admin** : `https://127.0.0.1:8000/admin`
+- 🔌 **API** : `https://127.0.0.1:8000/api`
+
+## 📸 Captures d'écran
+
+### Interface moderne avec thème sombre et accents orange, design responsive adapté à tous les écrans
+
+## 🧪 Tests
+
+L'application inclut des tests unitaires et fonctionnels :
+
+```bash
+# Créer un nouveau test
+php bin/console make:test
+
+# Exécuter tous les tests
+php bin/phpunit
+
+# Tests avec couverture de code
+php bin/phpunit --coverage-html coverage
+```
+
+## 🔧 Extensions VS Code recommandées
+
+Pour une meilleure expérience de développement :
+
+- **PHP**
+
+  - PHP IntelliSense (DEVSENSE)
+  - PHP Debug (DEVSENSE)
+  - PHP Profiler (DEVSENSE)
+  - PHP CS Fixer
+  - PHP DocBlocker
+  - PHP Namespace Resolver
+
+- **Symfony**
+
+  - Symfony Code Snippets
+  - Symfony Console
+
+- **Frontend**
+
+  - Twig Language 2
+  - Twig Code Snippets
+
+- **Autres**
+  - Composer (DEVSENSE)
+  - YAML (Red Hat)
+
+## 👨‍💻 Auteur
+
+**Caro639** - [GitHub](https://github.com/Caro639)
+
+---
+
+### Fait avec ❤️ et Symfony
