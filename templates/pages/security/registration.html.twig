@@ -4,10 +4,62 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1 class="mt-4">Formulaire d'inscription</h1>
+	<div class="container mt-5 mb-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="login-card">
+					<div class="login-header">
+						<div class="login-icon">👨‍🍳</div>
+						<h2 class="login-title">Inscription</h2>
+						<p class="login-subtitle">Rejoignez notre communauté culinaire</p>
+					</div>
 
-		{{ form(form) }}
+					{{ form_start(form, {'attr': {'class': 'login-form'}}) }}
+						
+						<div class="row">
+							<div class="col-md-6 mb-4">
+								{{ form_label(form.fullName, '👤 Nom complet', {'label_attr': {'class': 'form-label'}}) }}
+								{{ form_widget(form.fullName, {'attr': {'class': 'form-control login-input', 'placeholder': 'Votre nom complet'}}) }}
+								{{ form_errors(form.fullName) }}
+							</div>
+							<div class="col-md-6 mb-4">
+								{{ form_label(form.pseudo, '✨ Pseudo', {'label_attr': {'class': 'form-label'}}) }}
+								{{ form_widget(form.pseudo, {'attr': {'class': 'form-control login-input', 'placeholder': 'Votre pseudo'}}) }}
+								{{ form_errors(form.pseudo) }}
+							</div>
+						</div>
 
+						<div class="form-group mb-4">
+							{{ form_label(form.email, '📧 Adresse email', {'label_attr': {'class': 'form-label'}}) }}
+							{{ form_widget(form.email, {'attr': {'class': 'form-control login-input', 'placeholder': 'exemple@hellorecettes.fr'}}) }}
+							{{ form_errors(form.email) }}
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 mb-4">
+								{{ form_label(form.plainPassword.first, '🔑 Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+								{{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control login-input', 'placeholder': 'Votre mot de passe'}}) }}
+								{{ form_errors(form.plainPassword.first) }}
+							</div>
+							<div class="col-md-6 mb-4">
+								{{ form_label(form.plainPassword.second, '🔐 Confirmation', {'label_attr': {'class': 'form-label'}}) }}
+								{{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control login-input', 'placeholder': 'Confirmez le mot de passe'}}) }}
+								{{ form_errors(form.plainPassword.second) }}
+							</div>
+						</div>
+
+						<button type="submit" class="btn btn-login w-100">Créer mon compte</button>
+
+					{{ form_end(form) }}
+
+					<div class="login-footer">
+						<p class="text-center mb-0">
+							Déjà inscrit ? 
+							<a href="{{ path('app_security') }}" class="login-link">Connectez-vous</a>
+						</p>
+					</div>
+				</div>
+			</div>
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}

@@ -4,80 +4,88 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
+	<div class="container mt-4 mb-5">
+		<div class="page-header-section">
+			<div class="page-icon">📖</div>
+			<h1 class="page-title">Mes recettes</h1>
+			<p class="page-subtitle">Gérez vos créations culinaires personnelles</p>
+		</div>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+
 		{% if not recipes.items is same as([]) %}
-			<h1>Mes recettes</h1>
-
-			<a href="{{ path('recipe.new') }}" class="btn btn-warning mt-4">
-				Créer une recette
-			</a>
-
-			{% for message in app.flashes('success') %}
-				<div class="alert alert-success mt-4">
-					{{ message }}
+			<div class="d-flex justify-content-between align-items-center mb-4">
+				<div class="recipes-count">
+					<span class="badge-count">{{ recipes.getTotalItemCount }}
+						recette{{ recipes.getTotalItemCount > 1 ? 's' : '' }}</span>
 				</div>
-			{% endfor %}
-
-			{# total items count #}
-			<div class="count mt-4">
-				<h5>Il y a
-					{{ recipes.getTotalItemCount }}
-					recettes au total.
-				</h5>
+				<a href="{{ path('recipe.new') }}" class="btn btn-create">
+					➕ Créer une recette
+				</a>
 			</div>
 
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th scope="col">Numéro</th>
-						<th scope="col">Nom</th>
-						<th scope="col">Prix</th>
-						<th scope="col">Difficulté</th>
-						<th scope="col">Date de création</th>
-						<th scope="col">Edition</th>
-						<th scope="col">Suppression</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for recipe in recipes %}
-						<tr class="table-default">
-							<th scope="row">{{ recipe.id }}</th>
-							<td>{{ recipe.name }}</td>
-							<td>
-								{% if recipe.price is null %}
-									Non renseigné
+			<div class="row mt-4">
+				{% for recipe in recipes %}
+					<div class="col-md-6 col-lg-4 mb-4">
+						<div class="recipe-card-personal">
+							<div class="recipe-card-header">
+								<span class="recipe-badge">#{{ recipe.id }}</span>
+								<div class="recipe-actions">
+									<a href="{{ path('recipe.edit', {id: recipe.id }) }}" class="btn-action btn-edit" title="Modifier">
+										✏️
+									</a>
+									<a href="{{ path('recipe.delete', {id: recipe.id }) }}" class="btn-action btn-delete" title="Supprimer">
+										🗑️
+									</a>
+								</div>
+							</div>
+							<div class="recipe-card-body">
+								{% if recipe.image %}
+									<div class="recipe-image-wrapper">
+										<img class="img-fluid recipe-image" src="{{ asset('../image/products/'~ recipe.image) }}" alt="Photo de {{ recipe.name }}"/>
+									</div>
 								{% else %}
-									{{ recipe.price }}
+									<div class="recipe-image-wrapper">
+										<div class="recipe-no-image">🍽️</div>
+									</div>
 								{% endif %}
-							</td>
-							<td>
-								{% if recipe.difficulty is null %}
-									Non renseigné
-								{% else %}
-									{{ recipe.difficulty }}
-								{% endif %}
-							</td>
-							<td>{{ recipe.createdAt|date('d/m/y') }}</td>
-							<td>
-								<a href="{{ path('recipe.edit', {id: recipe.id }) }}" class="btn btn-outline-warning">Modifier</a>
-							</td>
-							<td>
-								<a href="{{ path('recipe.delete', {id: recipe.id }) }}" class="btn btn-outline-danger">Supprimer</a>
-							</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+								<h4 class="recipe-card-title">{{ recipe.name }}</h4>
+								<div class="recipe-info">
+									<div class="info-item">
+										<span class="info-label">💰 Prix</span>
+										<span class="info-value">{{ recipe.price ? recipe.price ~ '€' : 'Non défini' }}</span>
+									</div>
+									<div class="info-item">
+										<span class="info-label">⭐ Difficulté</span>
+										<span class="info-value">{{ recipe.difficulty ? recipe.difficulty : 'Non définie' }}</span>
+									</div>
+									<div class="info-item">
+										<span class="info-label">📅 Créée le</span>
+										<span class="info-value">{{ recipe.createdAt|date('d/m/Y') }}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
 
-			{# display navigation #}
-			<div class="navigation d-flex justify-content-center mt-4">
+			<div class="pagination-wrapper">
 				{{ knp_pagination_render(recipes) }}
 			</div>
 		{% else %}
-			<h5>Il n'y a pas de recettes !</h5>
-			<a href="{{ path('recipe.new') }}" class="btn btn-primary mt-4">
-				Créer une recette
-			</a>
+			<div class="empty-state">
+				<div class="empty-icon">📖</div>
+				<h3>Aucune recette</h3>
+				<p>Commencez par créer votre première recette délicieuse !</p>
+				<a href="{{ path('recipe.new') }}" class="btn btn-create mt-3">
+					➕ Créer ma première recette
+				</a>
+			</div>
 		{% endif %}
-		<div>
-		{% endblock %}
+	</div>
+{% endblock %}

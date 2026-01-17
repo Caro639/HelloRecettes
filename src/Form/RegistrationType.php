@@ -91,12 +91,12 @@ class RegistrationType extends AbstractType
                 ],
                 'invalid_message' => 'Les mots de passe ne correspondent pas.'
             ])
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-warning mt-4'
-                ]
-            ]);
-
+            // ->add('submit', SubmitType::class, [
+            //     'attr' => [
+            //         'class' => 'btn btn-warning mt-4'
+            //     ]
+            // ]);
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

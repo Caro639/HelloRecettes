@@ -67,3 +67,5 @@ Twig Code Snippets
 Twig Language 2
 
 YAML Red Hat
+
+Copy-Item "c:\laragon\www\HelloRecettes\assets\styles\app.css" "c:\laragon\www\HelloRecettes\public\styles\app.css"

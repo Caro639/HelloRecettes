@@ -4,17 +4,59 @@
 {% endblock %}
 
 {% block body %}
+	<div class="container mt-4 mb-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-6">
+				<div class="form-card">
+					<div class="form-header">
+						<div class="form-icon">👤</div>
+						<h2 class="form-title">Mon profil</h2>
+						<p class="form-subtitle">Modifiez vos informations personnelles</p>
+					</div>
 
-	<div class="container">
-		<h1 class="mt-4">Formulaire de modification de l'utilisateur</h1>
+					{% for message in app.flashes('warning') %}
+						<div class="alert alert-warning mb-4">
+							{{ message }}
+						</div>
+					{% endfor %}
 
-		{% for message in app.flashes('warning') %}
-			<div class="alert alert-warning mt-4">
-				{{ message }}
+					{% for message in app.flashes('success') %}
+						<div class="alert alert-success mb-4">
+							{{ message }}
+						</div>
+					{% endfor %}
+
+					{{ form_start(form, {'attr': {'class': 'custom-form'}}) }}
+
+					<div class="mb-4">
+						<label class="form-label">👤 Nom / Prénom</label>
+						{{ form_widget(form.fullName, {'attr': {'class': 'form-control form-input', 'placeholder': 'Jean Dupont'}}) }}
+						{{ form_errors(form.fullName) }}
+					</div>
+
+					<div class="mb-4">
+						<label class="form-label">✨ Pseudo (Facultatif)</label>
+						{{ form_widget(form.pseudo, {'attr': {'class': 'form-control form-input', 'placeholder': 'MonPseudo'}}) }}
+						{{ form_errors(form.pseudo) }}
+					</div>
+
+					<div class="mb-4">
+						<label class="form-label">🔑 Mot de passe</label>
+						{{ form_widget(form.plainPassword, {'attr': {'class': 'form-control form-input', 'placeholder': 'Votre mot de passe pour confirmer'}}) }}
+						{{ form_errors(form.plainPassword) }}
+						<small class="form-text text-muted">Saisissez votre mot de passe pour confirmer les modifications</small>
+					</div>
+
+					{{ form_row(form._token) }}
+
+					<div class="form-actions">
+						<a href="{{ path('home.index') }}" class="btn btn-cancel">Annuler</a>
+						{{ form_widget(form.submit, {'attr': {'class': 'btn btn-submit'}, 'label': '✓ Enregistrer les modifications'}) }}
+					</div>
+
+					{{ form_end(form) }}
+				</div>
 			</div>
-		{% endfor %}
-
-		{{ form(form) }}
-
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}

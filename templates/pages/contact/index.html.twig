@@ -1,18 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Recettes - Contact{% endblock %}
+{% block title %}HelloRecettes - Contact
+{% endblock %}
 
 {% block body %}
-<div class="container">
+	<div class="container mt-4 mb-5">
 		{% for message in app.flashes('success') %}
-				<div class="alert alert-success mt-4">
-					{{ message }}
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong>✓</strong>
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endfor %}
+
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="form-card">
+					<div class="form-header">
+						<div class="form-icon">💬</div>
+						<h2 class="form-title">Contactez-nous</h2>
+						<p class="form-subtitle">Nous sommes à votre écoute</p>
+					</div>
+
+					{{ form_start(form, {'attr': {'class': 'custom-form'}}) }}
+
+					<div class="mb-4">
+						<label class="form-label">👤 Nom complet</label>
+						{{ form_widget(form.fullName, {'attr': {'class': 'form-control form-input', 'placeholder': 'Votre nom'}}) }}
+						{{ form_errors(form.fullName) }}
+					</div>
+
+					<div class="mb-4">
+						<label class="form-label">📧 Email</label>
+						{{ form_widget(form.email, {'attr': {'class': 'form-control form-input', 'placeholder': 'votre@email.com'}}) }}
+						{{ form_errors(form.email) }}
+					</div>
+
+					<div class="mb-4">
+						<label class="form-label">📌 Sujet</label>
+						{{ form_widget(form.subject, {'attr': {'class': 'form-control form-input', 'placeholder': 'Objet de votre message'}}) }}
+						{{ form_errors(form.subject) }}
+					</div>
+
+					<div class="mb-4">
+						<label class="form-label">✉️ Message</label>
+						{{ form_widget(form.message, {'attr': {'class': 'form-control form-input form-textarea', 'rows': '6', 'placeholder': 'Écrivez votre message ici...'}}) }}
+						{{ form_errors(form.message) }}
+					</div>
+
+					{{ form_row(form._token) }}
+
+					<div class="form-actions">
+						<a href="{{ path('home.index') }}" class="btn btn-cancel">Retour</a>
+						{{ form_widget(form.submit, {'attr': {'class': 'btn btn-submit'}, 'label': '📨 Envoyer le message'}) }}
+					</div>
+
+					{{ form_end(form) }}
 				</div>
-			{% endfor %}
-
-<h1>Formulaire de contact</h1>
-
-{{ form(form) }}
-</div>
-
+			</div>
+		</div>
+	</div>
 {% endblock %}

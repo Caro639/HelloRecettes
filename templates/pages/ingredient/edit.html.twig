@@ -1,38 +1,40 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <div class="container">
-        <h2 class="mt-4">Modification de l'ingrédient</h2>
+	<div class="container mt-4 mb-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-6">
+				<div class="form-card">
+					<div class="form-header">
+						<div class="form-icon">🛒</div>
+						<h2 class="form-title">Modification de l'ingrédient</h2>
+						<p class="form-subtitle">Mettez à jour vos informations</p>
+					</div>
 
-    {{ form_start(form) }}
-    <div class="form-group">
-        {{ form_label(form.name) }}
-        {{ form_widget(form.name) }}
-    
-    <div class="form-error">
-        {{ form_errors(form.name) }}
-    </div>
+					{{ form_start(form, {'attr': {'class': 'custom-form'}}) }}
 
-    <div class="form-group">
-        {{ form_label(form.price) }}
-        {{ form_widget(form.price) }}
-        
-        <div class="form-error">
-            {{ form_errors(form.price) }}
-        </div>
-    </div>
-        
-    <div class="form-group">
-        {{ form_row(form._token) }}
-    </div>   
-    
-    <div class="form-group">
-        {{ form_row(form.submit) }}
-    </div>   
-       
-        {# <div class="col" id="some-custom-id">
-            {{ form_row(form.dueDate) }}
-        </div> #}
-{{ form_end(form) }}
-    </div>
+					<div class="mb-4">
+						<label class="form-label">📝 Nom de l'ingrédient</label>
+						{{ form_widget(form.name, {'attr': {'class': 'form-control form-input', 'placeholder': 'Ex: Tomates'}}) }}
+						{{ form_errors(form.name) }}
+					</div>
+
+					<div class="mb-4">
+						<label class="form-label">💰 Prix (€)</label>
+						{{ form_widget(form.price, {'attr': {'class': 'form-control form-input', 'placeholder': '2.50'}}) }}
+						{{ form_errors(form.price) }}
+					</div>
+
+					{{ form_row(form._token) }}
+
+					<div class="form-actions">
+						<a href="{{ path('app_ingredient') }}" class="btn btn-cancel">Annuler</a>
+						{{ form_widget(form.submit, {'attr': {'class': 'btn btn-submit'}, 'label': '✓ Enregistrer les modifications'}) }}
+					</div>
+
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

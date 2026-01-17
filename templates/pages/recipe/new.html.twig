@@ -4,101 +4,91 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h2 class="mt-4">Création d'une recette</h2>
+	<div class="container mt-4 mb-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="form-card">
+					<div class="form-header">
+						<div class="form-icon">👨‍🍳</div>
+						<h2 class="form-title">Créer une recette</h2>
+						<p class="form-subtitle">Partagez votre création culinaire</p>
+					</div>
 
-		{{ form_start(form) }}
+					{{ form_start(form, {'attr': {'class': 'custom-form'}}) }}
 
-		<div class="form-group">
-			{{ form_label(form.name) }}
-			{{ form_widget(form.name) }}
-			<div class="form-error">
-				{{ form_errors(form.name) }}
-			</div>
-		</div>
+					<div class="row">
+						<div class="col-md-8 mb-4">
+							<label class="form-label">Nom de la recette</label>
+							{{ form_widget(form.name, {'attr': {'class': 'form-control form-input', 'placeholder': 'Ex: Tarte aux pommes'}}) }}
+							{{ form_errors(form.name) }}
+						</div>
 
-		<div class="form-group">
-			{{ form_label(form.time) }}
-			{{ form_widget(form.time) }}
-			<div class="form-error">
-				{{ form_errors(form.time) }}
-			</div>
-		</div>
+						<div class="col-md-4 mb-4">
+							<label class="form-label">⏱️ Temps (min)</label>
+							{{ form_widget(form.time, {'attr': {'class': 'form-control form-input', 'placeholder': '30'}}) }}
+							{{ form_errors(form.time) }}
+						</div>
+					</div>
 
-		<div class="form-group">
-			{{ form_label(form.nbPeople) }}
-			{{ form_widget(form.nbPeople) }}
-			<div class="form-error">
-				{{ form_errors(form.nbPeople) }}
-			</div>
-		</div>
+					<div class="row">
+						<div class="col-md-4 mb-4">
+							<label class="form-label">👥 Personnes</label>
+							{{ form_widget(form.nbPeople, {'attr': {'class': 'form-control form-input', 'placeholder': '4'}}) }}
+							{{ form_errors(form.nbPeople) }}
+						</div>
 
-		<div class="form-group">
-			{{ form_label(form.difficulty) }}
-			{{ form_widget(form.difficulty) }}
-			<div class="form-error">
-				{{ form_errors(form.difficulty) }}
-			</div>
-		</div>
+						<div class="col-md-4 mb-4">
+							<label class="form-label">⭐ Difficulté</label>
+							{{ form_widget(form.difficulty, {'attr': {'class': 'form-control form-input'}}) }}
+							{{ form_errors(form.difficulty) }}
+						</div>
 
-		<div class="form-group">
-			{{ form_label(form.description) }}
-			{{ form_widget(form.description) }}
-			<div class="form-error">
-				{{ form_errors(form.description) }}
-			</div>
-		</div>
+						<div class="col-md-4 mb-4">
+							<label class="form-label">💰 Prix (€)</label>
+							{{ form_widget(form.price, {'attr': {'class': 'form-control form-input', 'placeholder': '15.00'}}) }}
+							{{ form_errors(form.price) }}
+						</div>
+					</div>
 
-		<div class="form-group">
-			{{ form_label(form.price) }}
-			{{ form_widget(form.price) }}
-			<div class="form-error">
-				{{ form_errors(form.price) }}
-			</div>
-		</div>
+					<div class="mb-4">
+						<label class="form-label">📝 Description</label>
+						{{ form_widget(form.description, {'attr': {'class': 'form-control form-input form-textarea', 'rows': '5', 'placeholder': 'Décrivez votre recette...'}}) }}
+						{{ form_errors(form.description) }}
+					</div>
 
-		<div class="form-group">
-			{{ form_label(form.isFavorite) }}
-			{{ form_widget(form.isFavorite) }}
-			<div class="form-error">
-				{{ form_errors(form.isFavorite) }}
-			</div>
-		</div>
-			<div class="form-group">
-				{{ form_label(form.isPublic) }}
-				{{ form_widget(form.isPublic) }}
-				<div class="form-error">
-					{{ form_errors(form.isPublic) }}
+					<div class="mb-4">
+						<label class="form-label">Ingrédients</label>
+						{{ form_widget(form.ingredients, {'attr': {'class': 'form-control form-select'}}) }}
+						{{ form_errors(form.ingredients) }}
+					</div>
+
+					<div class="form-options mb-4">
+						<div class="form-check-custom">
+							{{ form_widget(form.isFavorite, {'attr': {'class': 'form-check-input'}}) }}
+							<label class="form-check-label">⭐ Recette favorite</label>
+						</div>
+						<div class="form-check-custom">
+							{{ form_widget(form.isPublic, {'attr': {'class': 'form-check-input'}}) }}
+							<label class="form-check-label">🌍 Partager avec la communauté</label>
+						</div>
+					</div>
+
+					<div class="mb-4">
+						<label class="form-label">📸 Photo de la recette (Facultatif)</label>
+						{{ form_widget(form.photo, {'attr': {'class': 'form-control form-input'}}) }}
+						{{ form_errors(form.photo) }}
+					</div>
+
+					{{ form_row(form._token) }}
+
+					<div class="form-actions">
+						<a href="{{ path('app_recipe') }}" class="btn btn-cancel">Annuler</a>
+						{{ form_widget(form.submit, {'attr': {'class': 'btn btn-submit'}, 'label': '✓ Créer la recette'}) }}
+					</div>
+
+					{{ form_end(form) }}
 				</div>
 			</div>
-
-		<div class="form-group">
-			{{ form_label(form.ingredients) }}
-			<br>
-			<div id="ingredients-wrapper">
-				{% for field in form.ingredients %}
-					<div style="min-width: 10%;">
-						{{ form_widget(field) }}
-						{{ form_label(field) }}
-					</div>
-				{% endfor %}
-			</div>
 		</div>
-
-		<div class="form-group">
-			<p class="mt-4">Votre photo (Facultatif)</p>
-			{{ form_row(form.photo) }}
-			<button type="submit" class="btn btn-warning" name="form_photo[submit]">Valider votre photo</button>
-		</div>
-
-		<div class="form-group">
-			{{ form_row(form._token) }}
-		</div>
-
-		<div class="form-group">
-			{{ form_row(form.submit) }}
-		</div>
-
-		{{ form_end(form) }}
 	</div>
 {% endblock %}
